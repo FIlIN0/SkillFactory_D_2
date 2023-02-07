@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import PostsList
+from .views import NewsList, NewDetail
 urlpatterns = [
 
-    path('', PostsList.as_view()),
+    path('', NewsList.as_view()),
+    path('<int:pk>', NewDetail.as_view()),
 ]

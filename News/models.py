@@ -56,6 +56,9 @@ class Post(models.Model):
     def preview(self):
         return self.text_post[0:123] + '...'
 
+    #def __str__(self):
+    #    return f'{self.name.title()}: {self.text_post}, {self.type}, {self.rating_post}, {self.time_post}'
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

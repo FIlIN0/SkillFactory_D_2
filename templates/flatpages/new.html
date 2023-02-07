@@ -1,0 +1,38 @@
+
+
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+News detail
+{% endblock title %}
+
+{% block content %}
+    <h1>About this new</h1>
+    <hr>
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+                <td>
+                    Текст статьи
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ new.name|Censor }}
+                </td>
+                <td>
+                    {{ new.time_post|date:'d M Y H:i' }}
+                </td>
+                <td>
+                    {{ new.text_post|Censor }}
+                </td>
+            </tr>
+        </table>
+{% endblock content %}
