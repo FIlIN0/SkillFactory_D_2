@@ -8,6 +8,9 @@ class Author(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # Is it need NULL = True??
 
+    def __str__(self):
+        return f'{self.user.username}'
+
     def update_rating(self):
         postRat = self.post_set.all().aggregate(postRating=Sum('rating_post'))
         pRat = 0
