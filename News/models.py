@@ -27,6 +27,9 @@ class Author(models.Model):
 class Category(models.Model):
     category = models.CharField(max_length=64, unique=True)
 
+    def __str__(self):
+        return f'{self.category}'
+
 
 # article = 'AR'
 # new = 'NW'
@@ -58,6 +61,9 @@ class Post(models.Model):
 
     def preview(self):
         return self.text_post[0:123] + '...'
+
+    def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
+        return f'/news/{self.id}'
 
     #def __str__(self):
     #    return f'{self.name.title()}: {self.text_post}, {self.type}, {self.rating_post}, {self.time_post}'

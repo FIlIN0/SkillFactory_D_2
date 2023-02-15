@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Вы действительно хотите удалить пост?
+{% endblock title %}
+
+{% block content %}
+    <hr>
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+                <td>
+                    Текст статьи
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ new.name|Censor }}
+                </td>
+                <td>
+                    {{ new.time_post|date:'d M Y H:i' }}
+                </td>
+                <td>
+                    {{ new.text_post|Censor }}
+                </td>
+            </tr>
+        </table>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="подтвердить"></form>
+{% endblock content %}
