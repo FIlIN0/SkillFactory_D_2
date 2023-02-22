@@ -43,6 +43,10 @@ News
     {% endif %}
     <a href="{% url 'add' %}">Добавить новый товар</a> <br>
 
+    {% if is_not_author %}
+        <button> <a href="upgrade/"> Стать автором!</a> </button>
+    {% endif %}
+
     {% if is_paginated %}
 
         <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
