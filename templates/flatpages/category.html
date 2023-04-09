@@ -1,11 +1,32 @@
 {% extends 'flatpages/default.html' %}
 
 {% block title %}
-News
+Categories
 {% endblock title %}
 
 {% block content %}
-    <h1>Все новости</h1>
+    {% if not is_subscribed %}
+        <div>
+            <em>
+                Subscribe to
+                <strong> {{ category }}?</strong>
+            </em>
+            <a href="{% url 'subscribe' pk=category.id %}">
+            Subscribe
+            </a>
+        </div>
+    {% else %}
+        <div>
+            <em>
+                UNSubscribe to
+                <strong> {{ category }}?</strong>
+            </em>
+            <a href="{% url 'unsubscribe' pk=category.id %}">
+             Unsebscribe
+            </a>
+        </div>
+
+    {% endif %}
 
     <hr>
     {% if news %}
@@ -29,9 +50,6 @@ News
             <tr>
                 <td>
                     <a href="{% url 'new' new.id %}"> {{ new.name }} </a>
-                    <a href="{% url 'post_update' new.id %}"> <u>Редактировать</u> </a>
-                    <a href="{% url 'delete' new.id %}"><u> Удалить </u></a>
-
                 </td>
                 <td>
                     {{ new.time_post|date:'d M Y' }}
@@ -49,9 +67,8 @@ News
         {% endfor %}
         </table>
     {% else %}
-        <h2>Новостей нет!</h2>
+        <h2><a href="/accounts/login/"> Для отображения статей по категориям нужно зарегистрироваться!</a></h2>
     {% endif %}
-    <a href="{% url 'add' %}">Добавить новый пост</a> <br>
 
     {% if is_not_author %}
         <button> <a href="upgrade/"> Стать автором!</a> </button>
@@ -80,4 +97,5 @@ News
             <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
         {% endif %}
     {% endif %}
+
 {% endblock content %}

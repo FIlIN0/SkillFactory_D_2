@@ -1,5 +1,3 @@
-
-
 {% extends 'flatpages/default.html' %}
 
 {% load custom_filters %}
@@ -35,4 +33,8 @@ News detail
                 </td>
             </tr>
         </table>
+    Category:
+    {% for c in new.categories.values %}
+        <a href="{% url 'category' c.id %}">{{ c.category }}</a>
+    {% endfor %}
 {% endblock content %}

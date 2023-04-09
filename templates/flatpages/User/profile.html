@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Personal account with all subscriptions
+{% endblock title %}
+
+{% block content %}
+   {% for category in categories %}
+
+    <li>
+        {{ category.get_category }}
+        <a href="{% url 'unsubscribe' category.id %}">
+           Unsebscribe
+        </a>
+    </li>
+    {% endfor %}
+
+{% endblock content %}

@@ -29,8 +29,19 @@ class Author(models.Model):
 class Category(models.Model):
     category = models.CharField(max_length=64, unique=True)
 
+    subscribers = models.ManyToManyField(User, blank=True)
+
+    def subscribe(self):
+        pass
+
+    def get_category(self):
+        return self.category
+
     def __str__(self):
         return f'{self.category}'
+
+    def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
+        return f'/category/{self.id}'
 
 
 # article = 'AR'
@@ -51,6 +62,7 @@ class Post(models.Model):
     rating_post = models.IntegerField(default=0)
 
     authors = models.ForeignKey(Author, on_delete=models.CASCADE)
+
     categories = models.ManyToManyField(Category, through='PostCategory')
 
     def like(self):
