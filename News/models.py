@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
+from django.core.cache import cache
 
 
 class Author(models.Model):
@@ -78,6 +79,10 @@ class Post(models.Model):
 
     def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
         return f'/news/{self.id}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # сначала вызываем метод родителя, чтобы объект сохранился
+        cache.delete(f'post-{self.pk}')  # затем удаляем его из кэша, чтобы сбросить его
 
     #def __str__(self):
     #    return f'{self.name.title()}: {self.text_post}, {self.type}, {self.rating_post}, {self.time_post}'
